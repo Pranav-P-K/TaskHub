@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
-import { connectToDatabase } from "@/lib/db"
-import Notification from "@/models/Notification"
-import { authMiddleware } from "@/lib/authMiddleware"
+import { connectToDatabase } from "@/server/db"
+import Notification from "@/server/models/Notification"
+import { authMiddleware } from "@/server/middleware/auth"
 
 export async function GET(req: Request) {
   try {

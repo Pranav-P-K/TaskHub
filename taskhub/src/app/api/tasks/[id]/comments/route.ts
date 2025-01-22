@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
-import { connectToDatabase } from "@/lib/db"
-import Task from "@/models/Task"
-import { authMiddleware } from "@/lib/authMiddleware"
+import { connectToDatabase } from "@/server/db"
+import Task from "@/server/models/Task"
+import { authMiddleware } from "@/server/middleware/auth"
 
 export async function POST(req: Request, { params }: { params: { id: string } }) {
   try {
