@@ -2,17 +2,31 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 
-export default function TaskList({ tasks, onTaskUpdate }) {
+interface Task {
+  _id: string
+  title: string
+  description: string
+  status: string
+  priority: string
+  dueDate: string
+  comments: { text: string; createdAt: string }[]
+}
+
+interface TaskListProps {
+  tasks: Task[]
+  onTaskUpdate: () => void
+}
+
+export default function TaskList({ tasks, onTaskUpdate } : TaskListProps) {
   const { toast } = useToast()
-  const [selectedTask, setSelectedTask] = useState(null)
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
   const [comment, setComment] = useState("")
 
-  const handleStatusChange = async (taskId, newStatus) => {
+  const handleStatusChange = async (taskId: string, newStatus: string) => {
     try {
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: "PATCH",
@@ -46,6 +60,14 @@ export default function TaskList({ tasks, onTaskUpdate }) {
   }
 
   const handleCommentSubmit = async () => {
+    if (!selectedTask) {
+      toast({
+        title: "Error",
+        description: "No task selected. Please try again.",
+        variant: "destructive",
+      })
+      return
+    }
     try {
       const response = await fetch(`/api/tasks/${selectedTask._id}/comments`, {
         method: "POST",

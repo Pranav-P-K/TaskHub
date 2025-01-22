@@ -14,6 +14,7 @@ router.post("/", authMiddleware, async (req, res) => {
     await task.save()
     res.status(201).json(task)
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(500).json({ message: "Error creating task" })
   }
 })
@@ -29,6 +30,7 @@ router.get("/", authMiddleware, async (req, res) => {
     }
     res.status(200).json(tasks)
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(500).json({ message: "Error fetching tasks" })
   }
 })
@@ -47,6 +49,7 @@ router.patch("/:id", authMiddleware, async (req, res) => {
       res.status(403).json({ message: "Not authorized to update this task" })
     }
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(500).json({ message: "Error updating task" })
   }
 })
@@ -63,6 +66,7 @@ router.post("/:id/comments", authMiddleware, async (req, res) => {
     await task.save()
     res.status(201).json(comment)
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(500).json({ message: "Error adding comment" })
   }
 })

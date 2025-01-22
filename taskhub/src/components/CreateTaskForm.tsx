@@ -6,7 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 
-export default function CreateTaskForm({ onTaskCreated }) {
+interface CreateTaskFormProps {
+  onTaskCreated: () => void
+}
+
+export default function CreateTaskForm({ onTaskCreated } : CreateTaskFormProps) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [priority, setPriority] = useState("")

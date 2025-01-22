@@ -6,7 +6,9 @@ export const authMiddleware = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
     req.user = { id: decodedToken.id, role: decodedToken.role }
     next()
+    return req.user
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(401).json({ message: "Authentication failed" })
   }
 }

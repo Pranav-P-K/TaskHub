@@ -2,10 +2,22 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 
-export default function NotificationList({ notifications, onNotificationUpdate }) {
+interface Notification {
+  _id: string
+  message: string
+  read: boolean
+  createdAt: string
+}
+
+interface NotificationListProps {
+  notifications: Notification[]
+  onNotificationUpdate: () => void
+}
+
+export default function NotificationList({ notifications, onNotificationUpdate } : NotificationListProps) {
   const { toast } = useToast()
 
-  const handleMarkAsRead = async (notificationId) => {
+  const handleMarkAsRead = async (notificationId: string) => {
     try {
       const response = await fetch(`/api/notifications/${notificationId}`, {
         method: "PATCH",

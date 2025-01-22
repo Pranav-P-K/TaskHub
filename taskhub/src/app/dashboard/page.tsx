@@ -9,8 +9,13 @@ import TaskList from "@/components/TaskList"
 import CreateTaskForm from "@/components/CreateTaskForm"
 import NotificationList from "@/components/NotificationList"
 
+interface User {
+  name: string
+  role: string
+}
+
 export default function Dashboard() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<User | null>(null)
   const [tasks, setTasks] = useState([])
   const [notifications, setNotifications] = useState([])
   const router = useRouter()

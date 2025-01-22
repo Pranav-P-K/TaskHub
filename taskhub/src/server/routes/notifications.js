@@ -10,6 +10,7 @@ router.get("/", authMiddleware, async (req, res) => {
     const notifications = await Notification.find({ user: req.user.id }).sort("-createdAt")
     res.status(200).json(notifications)
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(500).json({ message: "Error fetching notifications" })
   }
 })
@@ -27,6 +28,7 @@ router.patch("/:id", authMiddleware, async (req, res) => {
     }
     res.status(200).json(notification)
   } catch (error) {
+    console.log("Error occurred: ", error)
     res.status(500).json({ message: "Error updating notification" })
   }
 })

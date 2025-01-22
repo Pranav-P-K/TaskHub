@@ -44,6 +44,7 @@ export default function Register() {
         description: "An error occurred. Please try again.",
         variant: "destructive",
       })
+      console.log("Error Occurred: ", error);
     }
   }
 
